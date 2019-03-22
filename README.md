@@ -27,6 +27,10 @@ Then copy all files from the container to the host machine
 ```
 docker cp <CONTAINER_ID>:/shinobi /host/path/target
 ```
+Import mysql database
+```
+Downloads this file [shinobi.sql](https://raw.githubusercontent.com/Ulisses1478/Shinobi-Docker/master/shinobi.sql) and import into database your database.
+```
 Delete the docker container and change conf.json inside shinobi the path you just copied to the host machine to you mysql config
 ```
 docker container rm <CONTAINER_ID>
