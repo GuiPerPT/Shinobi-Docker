@@ -3,8 +3,9 @@
 ## Getting Started
 ### TO RUN ( This docker image was developed to work with Mysql container and share files with host)
 If you run like this after a container restart you will not be able to connect to mysql database.
+```
 docker run -p 8080:8080 ulisses1478/shinobi
-
+```
 ### Installing
 
 #### If you want to make you will need to run a command manually inside it and setup and copy files to host machine (Don't forget if you do you can lost all your files).
@@ -44,4 +45,5 @@ docker run -d --name='Shinobi' -p '8080:8080/tcp' -v '/host/path/target':'/shino
 ## Authors
 
 * **Ulisses** - *Full work* - [Ulisses1478](https://github.com/ulisses1478)
+
 
