@@ -39,6 +39,13 @@ RUN apt-get install screen -y
 RUN mkdir /installation && mkdir -p /var/run/mysqld
 COPY shinobi.sql /installation/shinobi.sql
 
+
+## VOLUMES
+
+VOLUME /shinobi
+VOLUME /shinobi/videos
+VOLUME /var/lib/mysql
+
 ##START CONTAINER
 
 ENTRYPOINT ["/sbin/entrypoint.sh"]
