@@ -163,5 +163,10 @@ else
   exec "$@"
 fi
 
-
-screen /usr/bin/mysqld_safe --skip-grant-tables & mysql --execute="CREATE DATABASE shinobi" && mysqldump -u mysql  shinobi > /installation/shinobi.sql
+file="/shinobi/INSTALL/start.sh"
+if [ -f "$file" ]
+then
+	echo "$file found."
+else
+	 cd /shinobi && git clone https://gitlab.com/Shinobi-Systems/Shinobi.git . && chmod +x INSTALL/ubuntu.sh && INSTALL/ubuntu.sh
+fi
