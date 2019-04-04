@@ -17,15 +17,20 @@ RUN apt-get update \
  && rm -rf ${MYSQL_DATA_DIR} \
 && rm -rf /var/lib/apt/lists/*
 
+## COPY ENTRYPOINT AND SET PERMISSIONS
+
 COPY entrypoint.sh /sbin/entrypoint.sh
 
 RUN chmod 755 /sbin/entrypoint.sh
 
 ## CONFIG SHINOBI
 RUN cd / && git clone https://gitlab.com/Shinobi-Systems/Shinobi.git shinobi && cd shinobi && chmod +x INSTALL/ubuntu.sh && INSTALL/ubuntu.sh
+
 ## DEPENDENCIES SHINOBI
 RUN apt-get install ffmpeg
-## IMPORT SQL SHINOBI
+
+
+## MORE SHINOBI CONFIG
 RUN cd /shinobi && npm install
 COPY conf.json /shinobi/conf.json
 
@@ -33,6 +38,9 @@ COPY conf.json /shinobi/conf.json
 RUN apt-get install screen -y 
 RUN mkdir /installation && mkdir -p /var/run/mysqld
 COPY shinobi.sql /installation/shinobi.sql
+
+
+## VOLUMES
 
 VOLUME /shinobi
 VOLUME /shinobi/videos
