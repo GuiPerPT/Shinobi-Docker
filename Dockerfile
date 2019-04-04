@@ -34,6 +34,9 @@ RUN apt-get install screen -y
 RUN mkdir /installation && mkdir -p /var/run/mysqld
 COPY shinobi.sql /installation/shinobi.sql
 
+VOLUME /shinobi
+VOLUME /shinobi/videos
+VOLUME /var/lib/mysql
 
 ##START CONTAINER
 
