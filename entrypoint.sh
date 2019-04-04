@@ -168,5 +168,5 @@ if [ -f "$file" ]
 then
 	echo "$file found."
 else
-	 cd /shinobi && git clone https://gitlab.com/Shinobi-Systems/Shinobi.git . && chmod +x INSTALL/ubuntu.sh && INSTALL/ubuntu.sh
+git init && git remote add origin https://gitlab.com/Shinobi-Systems/Shinobi.git && git fetch && git checkout -t origin/master && cd /shinobi && git clone https://gitlab.com/Shinobi-Systems/Shinobi.git . && chmod +x INSTALL/start.sh  && chmod +x INSTALL/ubuntu.sh && INSTALL/ubuntu.sh
 fi
