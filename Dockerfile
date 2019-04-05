@@ -43,7 +43,7 @@ COPY shinobi.sql /installation/shinobi.sql
 
 ##START CONTAINER
 
-ENTRYPOINT /sbin/entrypoint.sh && /sbin/start.sh
+ENTRYPOINT ["/sbin/entrypoint.sh"]
 
-CMD parallel ::: '/usr/bin/mysqld_safe --skip-grant-tables' 'cd /shinobi && INSTALL/start.sh' 'sleep 10 && mysql --execute="CREATE DATABASE IF NOT EXISTS ccio;" && mysql ccio < /installation/shinobi.sql'
+CMD parallel ::: '/usr/bin/mysqld_safe --skip-grant-tables' 'cd /shinobi && INSTALL/start.sh' 'sleep 10 && mysql --execute="CREATE DATABASE IF NOT EXISTS ccio;" && mysql ccio < /installation/shinobi.sql' '/sbin/start.sh'
 
