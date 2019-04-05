@@ -1,14 +1,18 @@
-file="/shinobi/INSTALL/start.sh"
-if [ -f "$file" ]
-then
-	echo "$file found."
-else
-	echo $(pwd)
-if [ -f "/shinobi/.git" ]
-then
-cd /shinobi && git fetch && git checkout -t origin/master && chmod +x INSTALL/start.sh && chmod +x INSTALL/ubuntu.sh && INSTALL/ubuntu.sh && cp /installation/conf.json /shinobi
-else
-cd /shinobi && git init && git remote add origin https://gitlab.com/Shinobi-Systems/Shinobi.git && git fetch && git checkout -t origin/master && chmod +x INSTALL/start.sh && chmod +x INSTALL/ubuntu.sh && INSTALL/ubuntu.sh && cp /installation/conf.json /shinobi
+#!/bin/bash
+if [ -e "INSTALL/installed.txt" ]; then
+    /usr/bin/mysqld_safe --skip-grant-tables </dev/null &>/dev/null &
+    cp /installation/conf.json /shinobi/ -f
+    echo "Starting Shinobi"
+    pm2 start /shinobi/camera.js
+    pm2 start /shinobi/cron.js
+    pm2 logs
 fi
+if [ ! -e "INSTALL/installed.txt" ]; then
+    /usr/bin/mysqld_safe --skip-grant-tables </dev/null &>/dev/null &
+    cp /installation/conf.json /shinobi/ -f
+    chmod +x INSTALL/ubuntu.sh&&INSTALL/ubuntu.sh
+    echo "Starting Shinobi"
+    pm2 start /shinobi/camera.js
+    pm2 start /shinobi/cron.js
+    pm2 logs
 fi
-

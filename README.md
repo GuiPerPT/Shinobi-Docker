@@ -2,7 +2,7 @@
 
 ## Getting Started
 ### TO RUN ( This docker image was designed to work with Mysql container and share files with host) 
-But you can run fine without it
+You can run fine without it but it will wipe all your config. To not be wiped you MUST HAVE mysql container or /var/lib/mysql shared with host pc.
 
 #### If you run like this after a container restart you will not be able to connect to mysql database.
 ```

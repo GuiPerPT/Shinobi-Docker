@@ -1,6 +1,6 @@
 FROM ubuntu
 MAINTAINER ulisses
-RUN apt-get update && apt-get -y upgrade && apt-get install -y apt-utils && apt-get install -y software-properties-common && apt-get install sudo git parallel wget -y
+RUN apt-get update && apt-get -y upgrade && apt-get install -y apt-utils && apt-get install -y software-properties-common && apt-get update && apt-get install sudo ffmpeg x264 x265 nodejs npm git wget -y
 
 # MYSQL CONFIG
 ENV MYSQL_USER=mysql \
@@ -21,29 +21,16 @@ RUN apt-get update \
 COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod 755 /sbin/entrypoint.sh
 
-# Start script
-COPY start.sh /sbin/start.sh
-RUN chmod 755 /sbin/start.sh && chmod +x /sbin/start.sh
+## COPY STARTER AND SET PERMISSIONS
+COPY starter.sh /sbin/starter.sh
+RUN chmod 755 /sbin/starter.sh
 
-## CONFIG SHINOBI
-RUN cd / && git clone https://gitlab.com/Shinobi-Systems/Shinobi.git shinobi && cd shinobi && chmod +x INSTALL/ubuntu.sh && INSTALL/ubuntu.sh
-
-## DEPENDENCIES SHINOBI
-RUN apt-get install ffmpeg
-
-
-## MORE SHINOBI CONFIG
-RUN mkdir /installation && cd /shinobi && npm install
+## CUSTOM SHINOBI EASY INSTALL AND CONF
 COPY conf.json /installation/conf.json
-
-#IMPORT DATABASE
-RUN  mkdir -p /var/run/mysqld
-COPY shinobi.sql /installation/shinobi.sql
-
-
-##START CONTAINER
+COPY start.sh /installation/start.sh
+COPY ubuntu.sh /installation/ubuntu.sh
+RUN chmod +x /installation/ubuntu.sh && chmod +x /installation/start.sh
 
 ENTRYPOINT ["/sbin/entrypoint.sh"]
 
-CMD parallel ::: '/usr/bin/mysqld_safe --skip-grant-tables' 'cd /shinobi && INSTALL/start.sh' 'sleep 10 && mysql --execute="CREATE DATABASE IF NOT EXISTS ccio;" && mysql ccio < /installation/shinobi.sql' '/sbin/start.sh'
-
+CMD ["/sbin/starter.sh"]
