@@ -18,10 +18,12 @@ RUN apt-get update \
 && rm -rf /var/lib/apt/lists/*
 
 ## COPY ENTRYPOINT AND SET PERMISSIONS
-
 COPY entrypoint.sh /sbin/entrypoint.sh
-
 RUN chmod 755 /sbin/entrypoint.sh
+
+# Start script
+COPY start.sh /sbin/start.sh
+RUN chmod 755 /sbin/start.sh && chmod +x /sbin/start.sh
 
 ## CONFIG SHINOBI
 RUN cd / && git clone https://gitlab.com/Shinobi-Systems/Shinobi.git shinobi && cd shinobi && chmod +x INSTALL/ubuntu.sh && INSTALL/ubuntu.sh
@@ -31,18 +33,17 @@ RUN apt-get install ffmpeg
 
 
 ## MORE SHINOBI CONFIG
-RUN cd /shinobi && npm install
-COPY conf.json /conf.json
+RUN mkdir /installation && cd /shinobi && npm install
+COPY conf.json /installation/conf.json
 
 #IMPORT DATABASE
-RUN apt-get install screen -y 
-RUN mkdir /installation && mkdir -p /var/run/mysqld
+RUN  mkdir -p /var/run/mysqld
 COPY shinobi.sql /installation/shinobi.sql
 
 
 ##START CONTAINER
 
-ENTRYPOINT ["/sbin/entrypoint.sh"]
+ENTRYPOINT /sbin/entrypoint.sh && /sbin/start.sh
 
 CMD parallel ::: '/usr/bin/mysqld_safe --skip-grant-tables' 'cd /shinobi && INSTALL/start.sh' 'sleep 10 && mysql --execute="CREATE DATABASE IF NOT EXISTS ccio;" && mysql ccio < /installation/shinobi.sql'
 
