@@ -32,7 +32,7 @@ RUN apt-get install ffmpeg
 
 ## MORE SHINOBI CONFIG
 RUN cd /shinobi && npm install
-COPY conf.json /shinobi/conf.json
+COPY conf.json /conf.json
 
 #IMPORT DATABASE
 RUN apt-get install screen -y 
