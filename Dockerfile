@@ -31,6 +31,8 @@ COPY start.sh /installation/start.sh
 COPY ubuntu.sh /installation/ubuntu.sh
 RUN chmod +x /installation/ubuntu.sh && chmod +x /installation/start.sh
 
+## PM2
+RUN npm install pm2 -g
 ENTRYPOINT ["/sbin/entrypoint.sh"]
 
 CMD ["/sbin/starter.sh"]
