@@ -44,7 +44,7 @@ if [ ! -d "shinobi/camera.js" ]; then
     sudo find /shinobi -mindepth 1 ! -regex '^/shinobi/videos\(/.*\)?' -delete
     sudo rm -rf /shinobi/.git
     sudo git init
-    sudo git remote add origin $gitURL
+    sudo git remote add origin $gitURL.git
     sudo git fetch
     sudo git checkout -t origin/master
     # Enter Shinobi folder "/shinobi"gi
