@@ -2,7 +2,7 @@
 echo "---------------------------------------------"
 echo "Installing Shinobi"
 echo '*Note : Default install location is "/shinobi"'
-installLocation="/"
+installLocation="/shinobi"
 cd $installLocation
 echo "Opening Install Location : \"$installLocation\""
 if [ ! -d "shinobi/camera.js" ]; then
@@ -41,9 +41,12 @@ if [ ! -d "shinobi/camera.js" ]; then
 
     # Download from Git repository
     gitURL="https://gitlab.com/Shinobi-Systems/Shinobi$theRepo"
-    sudo git clone $gitURL.git -b $theBranch shinobi
-    # Enter Shinobi folder "/shinobi"
-    cd shinobi
+    sudo find /shinobi -mindepth 1 ! -regex '^/shinobi/videos\(/.*\)?' -delete
+    sudo git init
+    sudo git remote add origin $gitURL.git
+    sudo git fetch
+    # Enter Shinobi folder "/shinobi"gi
+    # cd shinobi
     cp /installation/ubuntu.sh /shinobi/INSTALL -f && cp /installation/start.sh /shinobi/INSTALL -f
     gitVersionNumber=$(git rev-parse HEAD)
     theDateRightNow=$(date)

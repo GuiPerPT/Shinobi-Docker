@@ -9,7 +9,7 @@ ENV MYSQL_USER=mysql \
     MYSQL_RUN_DIR=/run/mysqld \
     MYSQL_LOG_DIR=/var/log/mysql \
     DB_USER=root \
-    DB_PASS=root \ 
+    DB_PASS=root \
     DB_NAME=shinobi
 
 RUN apt-get update \
