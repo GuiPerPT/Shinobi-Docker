@@ -42,9 +42,11 @@ if [ ! -d "shinobi/camera.js" ]; then
     # Download from Git repository
     gitURL="https://gitlab.com/Shinobi-Systems/Shinobi$theRepo"
     sudo find /shinobi -mindepth 1 ! -regex '^/shinobi/videos\(/.*\)?' -delete
+    sudo rm -rf /shinobi/.git
     sudo git init
-    sudo git remote add origin $gitURL.git
+    sudo git remote add origin $gitURL
     sudo git fetch
+    sudo git checkout -t origin/master
     # Enter Shinobi folder "/shinobi"gi
     # cd shinobi
     cp /installation/ubuntu.sh /shinobi/INSTALL -f && cp /installation/start.sh /shinobi/INSTALL -f
