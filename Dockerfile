@@ -33,6 +33,10 @@ RUN chmod +x /installation/ubuntu.sh && chmod +x /installation/start.sh
 
 ## PM2
 RUN npm install pm2 -g
+
+## VOLUMES
+VOLUME /var/lib/mysql
+
 ENTRYPOINT ["/sbin/entrypoint.sh"]
 
 CMD ["/sbin/starter.sh"]
