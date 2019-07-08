@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.1-base-ubuntu16.04
 MAINTAINER ulisses
-RUN apt-get update && apt-get -y upgrade && apt-get install -y apt-utils && apt-get install -y software-properties-common && apt-get update && apt-get install sudo ffmpeg x264 x265 nodejs npm git wget -y
+RUN apt-get update && apt-get -y upgrade && apt-get install -y apt-utils && apt-get install -y software-properties-common && apt-get update && apt-get install sudo ffmpeg x264 x265 nodejs npm git wget cuda-toolkit-10-1 -y
 
 # MYSQL CONFIG
 ENV MYSQL_USER=mysql \
