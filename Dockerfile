@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM nvidia/cuda:10.1-base
 MAINTAINER ulisses
 RUN apt-get update && apt-get -y upgrade && apt-get install -y apt-utils && apt-get install -y software-properties-common && apt-get update && apt-get install sudo ffmpeg x264 x265 nodejs npm git wget -y
 
